@@ -19,7 +19,7 @@ $ yarn add @types/styled-components -D
 ```
 Exemplificando:
 
-```react
+```jsx
 
 import styled from 'styled-components'
 

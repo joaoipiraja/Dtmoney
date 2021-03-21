@@ -1,7 +1,7 @@
 # DTMONEY
 
 - [x] Estrutura da aplicação ⚙️
-- [ ] Componentização 🧩
+- [x] Componentização 🧩
 - [ ] Consumindo API 🗣
 - [ ] Modal e Forms 🪟
 - [ ] Contextos e hooks🪝

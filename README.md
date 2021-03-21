@@ -2,7 +2,7 @@
 
 - [x] Estrutura da aplicação ⚙️
 - [x] Componentização 🧩
-- [ ] Consumindo API 🗣
+- [x] Consumindo API 🗣
 - [ ] Modal e Forms 🪟
 - [ ] Contextos e hooks🪝
 
@@ -17,7 +17,7 @@ $ yarn create-react-app dtmoney --template typescript
 $ yarn add styled-components
 $ yarn add @types/styled-components -D
 ```
-Exemplificando:
+#### In Action 👊🏽
 
 ```jsx
 
@@ -28,13 +28,39 @@ const Title = styled.h1`
   font-size: 64px;
 `
 
-export function App() {
   return (
     <div className="App">
       <Title>Olá,mundo!</Title>
     </div>
   );
 }
+```
 
+## MirageJS API: Fake Backend
+
+```cmd
+$ yarn add miragejs
+```
+#### In Action 👊🏽
+
+```jsx
+
+createServer({
+  routes() {
+    this.namespace = 'api';
+    this.get('/transactions', () => {
+      return [
+        {
+          id: 1,
+          title: 'Transaction 1',
+          amount: 400,
+          type: 'deposit',
+          category: 'Food',
+          createdAt: new Date()
+        }
+      ]
+    })
+  }
+})
 
 ```

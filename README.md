@@ -69,7 +69,9 @@ createServer({
 ```cmd
 $ yarn add axios
 ```
-#### api.ts
+#### In Action 👊🏽
+
+##### api.ts
 
 ```jsx
 
@@ -80,7 +82,7 @@ export const api = axios.create({
 });
 
 ```
-#### Use in the components
+##### Use in the components
 
 
 ```jsx

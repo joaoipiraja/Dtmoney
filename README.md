@@ -43,34 +43,6 @@ const Button = styled.button`
 }
 ```
 
-## MirageJS API: Fake Backend
-
-```cmd
-$ yarn add miragejs
-```
-#### In Action 👊🏽
-
-```jsx
-
-createServer({
-  routes() {
-    this.namespace = 'api';
-    this.get('/transactions', () => {
-      return [
-        {
-          id: 1,
-          title: 'Transaction 1',
-          amount: 400,
-          type: 'deposit',
-          category: 'Food',
-          createdAt: new Date()
-        }
-      ]
-    })
-  }
-})
-
-```
 ##### Component Props
 
 ```jsx
@@ -91,6 +63,84 @@ export const RadioBox = styled.button<RadioBoxProps>`
     activeColor="red"
  >
 ```
+
+## MirageJS API: Fake Backend
+
+```cmd
+$ yarn add miragejs
+```
+#### In Action 👊🏽
+
+##### Configure in index.tsx
+
+```jsx
+
+createServer({
+  models: {
+    transaction: Model,
+  },
+  seeds(server) {
+    server.db.loadData({
+      transactions: [
+        {
+          id: 1,
+          title: "Freelance de website",
+          type: "deposit",
+          category: "Dev",
+          amount: 6000,
+          createdAt: new Date("2021-02-12 09:00:00"),
+        },
+        {
+          id: 2,
+          title: "Aluguel",
+          type: "withdraw",
+          category: "Casa",
+          amount: 2000,
+          createdAt: new Date("2021-02-01 09:00:00"),
+        },
+      ],
+    });
+  },
+  routes() {
+    this.namespace = "api";
+    this.get("/transactions", () => {
+      return this.schema.all("transaction");
+    });
+
+    this.post("/transactions", (schema, request) => {
+      const data = JSON.parse(request.requestBody);
+      return this.schema.create("transaction", data);
+    });
+  },
+});
+
+```
+##### GET
+
+```jsx
+
+useEffect(() => {
+    api.get("/transactions")
+    .then(data => console.log(data))
+}, []);
+
+
+```
+##### POST
+
+```jsx
+
+const data = {
+    title,
+    value,
+    category,
+    type,
+}
+
+api.post('/transaction', data)
+
+```
+
 ## Axios: A HTTP Client
 
 ```cmd

@@ -1,5 +1,7 @@
 # DTMONEY
 
+[<img src="/ARDice/screenshots/tela.gif"/>](tela.gif)
+
 - [x] Estrutura da aplicação ⚙️
 - [x] Componentização 🧩
 - [x] Consumindo API 🗣

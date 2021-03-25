@@ -4,9 +4,11 @@
 - [x] Componentização 🧩
 - [x] Consumindo API 🗣
 - [x] Modal e Forms 🪟
-- [ ] Contextos e hooks🪝
+- [x] Contextos e hooks🪝
 
 ## Preparing environment faster 
+Already installs and configures Webpack/ Babel
+
 ```cmd
 $ yarn create-react-app dtmoney --template typescript
 ```
@@ -203,3 +205,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 }
 
 ```
+
+## Context.API: 
+State sharing between various components of the application, avoiding pop drilling
+

@@ -1,6 +1,6 @@
 # DTMONEY
-
-[<img src="/ARDice/screenshots/tela.gif"/>](tela.gif)
+`A financial management app`
+# [<img src="/screenshots/tela.gif" width="75%"/>](tela.gif)
 
 - [x] Estrutura da aplicação ⚙️
 - [x] Componentização 🧩

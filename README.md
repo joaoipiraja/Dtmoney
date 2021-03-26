@@ -1,6 +1,6 @@
 # DTMONEY
-`A financial management app`
-# [<img src="/screenshots/tela.gif" width="75%"/>](tela.gif)
+### `A financial management app`
+[<img src="/screenshots/tela.gif" />](tela.gif)
 
 - [x] Estrutura da aplicação ⚙️
 - [x] Componentização 🧩
@@ -14,8 +14,7 @@ Already installs and configures Webpack/ Babel
 ```cmd
 $ yarn create-react-app dtmoney --template typescript
 ```
-
-## Styled-Components + Polished : CSS in JS
+### Styled-Components + Polished : CSS in JS
 
 ```cmd
 $ yarn add styled-components
@@ -68,7 +67,7 @@ export const RadioBox = styled.button<RadioBoxProps>`
  >
 ```
 
-## MirageJS API: Fake Backend
+### MirageJS API: Fake Backend
 
 ```cmd
 $ yarn add miragejs
@@ -145,7 +144,7 @@ api.post('/transaction', data)
 
 ```
 
-## Axios: A HTTP Client
+### Axios: A HTTP Client
 
 ```cmd
 $ yarn add axios
@@ -176,7 +175,7 @@ useEffect(() => {
     }, []);
 
 ```
-## React Modal
+### React Modal
 
 ```cmd
 $ yarn add react-modal
@@ -208,6 +207,97 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 
 ```
 
-## Context.API: 
+### Context.API: 
 State sharing between various components of the application, avoiding pop drilling
+
+#### In Action 👊🏽
+
+##### UseTransaction Hook
+
+```jsx
+
+import { createContext, useEffect, useState, ReactNode, useContext } from 'react';
+import { api } from '../services/api';
+
+interface Transaction {
+    id: number;
+    title: string;
+    amount: number;
+    type: string;
+    category: string;
+    createdAt: string;
+}
+
+interface TransactionsProviderProps {
+    children: ReactNode;
+}
+
+interface TransactionContextData {
+    transactions: Transaction[];
+    createTransaction: (transaction: TransactionInput) => Promise<void>;
+}
+
+type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>; //pega todos os campos de transaction menos id e createdAt
+
+const TransactionsContext = createContext<TransactionContextData>(
+    {} as TransactionContextData
+);
+
+export function TransactionsProvider({ children }: TransactionsProviderProps) {
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+    useEffect(() => {
+        api.get('transactions')
+            .then(response => setTransactions(response.data.transactions))
+    }, []);
+
+    async function createTransaction(transactionInput: TransactionInput) {
+       
+        const response = await api.post('transactions', {
+            ...transactionInput,
+            createdAt: new Date(),
+        })
+        const { transaction } = response.data;
+        setTransactions([
+            ...transactions,
+            transaction,
+        ]);
+    }
+
+
+    return (
+        <TransactionsContext.Provider value={{ transactions, createTransaction }}>
+            {children}
+        </TransactionsContext.Provider>
+    )
+
+}
+
+export function useTransactions() {
+    const context = useContext(TransactionsContext);
+    return context;
+}
+
+```
+##### Add to App.tsx
+
+```jsx
+
+export function App() {
+
+  return (
+    <TransactionsProvider>
+
+    </TransactionsProvider>
+  );
+}
+
+```
+##### Acess in the components
+
+```jsx
+const { transactions } = useTransactions();
+
+``` 
+
 
